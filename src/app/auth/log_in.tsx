@@ -1,8 +1,20 @@
 import { JSX } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 
 import Header from "../../components/header";
 import Button from "../../components/button";
+import { Link, router } from "expo-router";
+
+const hadlePress = (): void => {
+  //ログイン
+  router.push("/memo/list");
+};
 
 const LogIn = (): JSX.Element => {
   return (
@@ -12,10 +24,14 @@ const LogIn = (): JSX.Element => {
         <Text style={sytles.title}>Log In</Text>
         <TextInput style={sytles.input} value="Email addres" />
         <TextInput style={sytles.input} value="Passward" />
-        <Button label="Submit" />
+        <Button label="Submit" onPress={hadlePress} />
         <View style={sytles.footer}>
           <Text style={sytles.footerText}>Not regstered?</Text>
-          <Text style={sytles.footerLink}>Sign up here!</Text>
+          <Link href="/auth/sign_up" asChild>
+            <TouchableOpacity>
+              <Text style={sytles.footerLink}>Sign up here!</Text>
+            </TouchableOpacity>
+          </Link>
         </View>
       </View>
     </View>
