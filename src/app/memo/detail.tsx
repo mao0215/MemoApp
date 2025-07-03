@@ -13,7 +13,7 @@ const handlePress = (): void => {
 const Detail = () => {
   return (
     <View style={styles.container}>
-      <Header />
+      {/* <Header /> */}
       <View style={styles.memoHeader}>
         <Text style={styles.memoTitle}>買い物リスト</Text>
         <Text style={styles.memoDate}>2025年6月25日 10:00</Text>
@@ -26,7 +26,7 @@ const Detail = () => {
           </Text>
         </ScrollView>
       </View>
-      <CircleButton onPress={handlePress} style={{ top: 160, bottom: "auto" }}>
+      <CircleButton onPress={handlePress} style={{ top: 60, bottom: "auto" }}>
         <Icon name="pencil" size={40} color="#ffffff" />
         {/* <FontAwesome5 name="pen" size={30} /> */}
       </CircleButton>
