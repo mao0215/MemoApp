@@ -5,16 +5,29 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { Link, router } from "expo-router";
 import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
-import Header from "../../components/header";
+//import Header from "../../components/header";
+import { auth } from "../../config";
 import Button from "../../components/button";
 
-const hadlePress = (): void => {
+const hadlePress = (email: string, password: string): void => {
   //会員登録
-  router.push("/memo/list");
+  console.log(email, password);
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      console.log(userCredential.user.uid);
+      router.replace("/memo/list");
+    })
+    .catch((error) => {
+      const { code, message } = error;
+      console.log(code, message);
+      Alert.alert(message);
+    });
 };
 
 const SignUp = (): JSX.Element => {
@@ -47,10 +60,15 @@ const SignUp = (): JSX.Element => {
           textContentType="password"
         />
 
-        <Button label="Submit" onPress={hadlePress} />
+        <Button
+          label="Submit"
+          onPress={() => {
+            hadlePress(email, password);
+          }}
+        />
         <View style={sytles.footer}>
           <Text style={sytles.footerText}>Already registered?</Text>
-          <Link href="/auth/log_in" asChild>
+          <Link href="/auth/log_in" asChild replace>
             <TouchableOpacity>
               <Text style={sytles.footerLink}>Log in.</Text>
             </TouchableOpacity>

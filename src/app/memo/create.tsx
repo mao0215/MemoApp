@@ -6,6 +6,8 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { router } from "expo-router";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../config";
 
 import Header from "../../components/header";
 import CircleButton from "../../components/circleButton";
