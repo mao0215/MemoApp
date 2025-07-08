@@ -1,4 +1,24 @@
+// {
+//   "rules": {
+//     "react/react-in-jsx-scope": 0,
+//     "semi": [2, "never"],
+//     "comma-dangle": [2, "never"]
+//   }
+// }
 {
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": ["eslint:recommended"],
   "rules": {
     "react/react-in-jsx-scope": 0,
     "semi": [2, "never"],
