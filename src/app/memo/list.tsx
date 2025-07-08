@@ -1,13 +1,11 @@
 import { JSX } from "react";
-import { View, StyleSheet, Text, unstable_batchedUpdates } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import { router, useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 
-import Header from "../../components/header";
 import MemoListItem from "../../components/MemoListItem";
 import CircleButton from "../../components/circleButton";
-//import { Feather, FontAwesome5 } from "@expo/vector-icons";
 import Icon from "../../components/icon";
 import LogOutButton from "../../components/logoutbutton";
 
@@ -38,8 +36,7 @@ const List = (): JSX.Element => {
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const remoteMemos: Memo[] = [];
       snapshot.forEach((doc) => {
-        console.log("memo", doc.data()); //doc.data()でメモデータにアクセス
-        const { bodyText, updatedAt } = doc.data();
+        const { bodyText, updatedAt } = doc.data(); //doc.data()でメモデータにアクセス
         remoteMemos.push({
           //remoteMomos配列に入れる
           id: doc.id,
@@ -53,17 +50,13 @@ const List = (): JSX.Element => {
   }, []);
   return (
     <View style={styles.container}>
+      <FlatList
+        data={memos}
+        renderItem={({ item }) => <MemoListItem memo={item} />}
+      />
       {/* <Header /> */}
 
       {/*memoList*/}
-      <View>
-        {memos.map((memo) => (
-          <MemoListItem memo={memo} /> //{retrun  <MemoListItem memo={memo} />}と同じ意味
-        ))}
-        {/* <MemoListItem />
-        <MemoListItem />
-        <MemoListItem /> */}
-      </View>
 
       <CircleButton onPress={handlePress}>
         {/* <Feather name="plus" size={40} /> */}
