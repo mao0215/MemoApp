@@ -9,12 +9,12 @@ import Icon from "../../components/icon";
 import { auth, db } from "../../config";
 import { type Memo } from "../../../types/memo";
 
-const handlePress = (): void => {
-  router.push("memo/edit");
+const handlePress = (id: string): void => {
+  router.push({ pathname: "memo/edit", params: { id } });
 };
 
 const Detail = (): JSX.Element => {
-  const { id } = useLocalSearchParams();
+  const id = String(useLocalSearchParams().id);
   console.log(id);
   const [memo, setMemo] = useState<Memo | null>(null);
   useEffect(() => {
@@ -49,7 +49,12 @@ const Detail = (): JSX.Element => {
           <Text style={styles.memoBodyText}>{memo?.bodyText}</Text>
         </ScrollView>
       </View>
-      <CircleButton onPress={handlePress} style={{ top: 60, bottom: "auto" }}>
+      <CircleButton
+        onPress={() => {
+          handlePress(id);
+        }}
+        style={{ top: 60, bottom: "auto" }}
+      >
         <Icon name="pencil" size={40} color="#ffffff" />
         {/* <FontAwesome5 name="pen" size={30} /> */}
       </CircleButton>
